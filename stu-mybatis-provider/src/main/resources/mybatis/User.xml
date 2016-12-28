@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace:命名空间，作用是sql隔离，防止sql语句的ID重名
+ -->
+<mapper namespace="com.bob.stu.mybatis.po.User">
+
+    <!--
+		#{}占位符：如果输入的参数是pojo，那么#{}中的变量名称就是pojo属性名称
+	 -->
+    <insert id="saveUser" parameterType="user">
+        insert into user (username, birthday, sex, address)
+        values (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <!--
+    id:Sql语句的唯一标识
+    parameterType:输入参数类型
+    resultType：sql语句执行后的返回结果集类型
+    #{}:占位符，如果传入的是简单类型（string,long,double,int等等）那么#{}中的变量名称可以随便起名
+     -->
+    <select id="findUserById" parameterType="int" resultType="user">
+        select * from user where id=#{aaa}
+    </select>
+
+    <!--
+	如果返回结果为List那么resultType要写泛型的类型
+	${}:拼接符，就是将传入的参数和sql语句字符串原样拼接。如果传入的是简单类型那么${}中的变量名称，必须是value
+	注意：它有Sql注入的风险。所以要慎重使用
+	 -->
+    <select id="findUserByUserName" parameterType="java.lang.String" resultType="user">
+        select * from user where username like '%${value}%'
+    </select>
+
+    <!--
+		#{}占位符：如果输入的参数是pojo，那么#{}中的变量名称就是pojo属性名称
+	 -->
+    <insert id="saveUser" parameterType="user">
+        <!--
+        selectKey:是在增加的方法中执行另一条sql
+        order:表示在insert之前执行还是之后执行，之前执行用BEFORE之后执行用FATER
+        keyProperty:将查询出来的刚刚增加的那条数据的ID放到传入的User的id属性中保存
+         -->
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into user (username, birthday, sex, address)
+        values (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <update id="updateUserById" parameterType="user">
+        update user set username=#{username} where id=#{id}
+    </update>
+
+
+    <delete id="delteUserById" parameterType="int">
+        delete from user where id=#{bbb}
+    </delete>
+
+    <select id="findUserBySexAndIds" parameterType="cn.itcast.vo.UserVo" resultType="user">
+        select * from user
+        <where>
+            <if test="user.sex!=null and user.sex!=''">
+                and sex='1'
+            </if>
+            <if test="ids!=null and ids!=''">
+                <!--
+                collection:传入参数的集合变量名称
+                item:临时变量名称，可以随意起名
+                open:SQL语句前拼接的字符串
+                close:sql语句中最后拼接的字符串
+                separator：中间拼接的字符串
+                 -->
+                <foreach collection="ids" item="aaa" open="and id in(" close=")" separator=",">
+                    #{aaa}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

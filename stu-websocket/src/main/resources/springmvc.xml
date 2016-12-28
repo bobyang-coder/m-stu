@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- 加载资源配置文件 -->
+    <context:property-placeholder location="classpath:resources.properties"/>
+
+    <!-- 配置注解驱动，里面会自动加载注解的处理器映射器和适配器 -->
+    <mvc:annotation-driven/>
+
+    <!-- 配置包扫描器 -->
+    <context:component-scan base-package="com.bob.stu"/>
+
+    <!-- 配置springmvc的视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- url前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- url后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--标签顺序properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,plugins?,environments?,databaseIdProvider?,mappers?)"。-->
+
+
+    <typeAliases>
+        <typeAlias type="com.bob.stu.mybatis.po.Items" alias="items"/>
+        <!--
+			使用包扫描的方式批量定义别名
+			别名就是类型，可以大写也可以小写还可以大小写混合
+			但是建议使用java命名规范来写，首字母小写，以后每个单词的首字母大写
+		-->
+        <package name="com.bob.stu.mybatis.po"/>
+    </typeAliases>
+
+    <!-- 和spring整合后 environments配置将废除-->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理-->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池type="POOLED"为mybatis实现的简单的连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/study?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="study"/>
+                <property name="password" value="study"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mybatis/User.xml"/>
+    </mappers>
+</configuration>
