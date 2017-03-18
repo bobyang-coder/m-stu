@@ -14,6 +14,7 @@
         <module>stu-mybatis-provider</module>
         <module>stu-websocket</module>
         <module>stu-springboot-websocket</module>
+        <module>stu-design-pattern</module>
     </modules>
 
 
