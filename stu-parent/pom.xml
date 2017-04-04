@@ -39,6 +39,7 @@
         <activemq.version>5.11.2</activemq.version>
         <freemarker.version>2.3.23</freemarker.version>
         <quartz.version>2.2.2</quartz.version>
+        <fastjson.version>1.2.29</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +63,13 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -5,19 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bob.stu</groupId>
-    <artifactId>study</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>stu-mybatis</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <modules>
-        <module>stu-parent</module>
-        <module>stu-spring-boot</module>
-        <module>stu-mybatis-provider</module>
-        <module>stu-websocket</module>
-        <module>stu-springboot-websocket</module>
-        <module>stu-design-pattern</module>
-        <module>stu-mybatis</module>
         <module>stu-mybatis-service</module>
-        <module>stu-mybatis</module>
+        <module>stu-jdbc</module>
     </modules>
 
 
