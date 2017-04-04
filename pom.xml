@@ -18,6 +18,7 @@
         <module>stu-mybatis</module>
         <module>stu-mybatis-service</module>
         <module>stu-mybatis</module>
+        <module>stu-refactoring</module>
     </modules>
 
 
