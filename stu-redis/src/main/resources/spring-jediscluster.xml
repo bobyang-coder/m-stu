@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd ">
+
+    <!--redis集群版-->
+    <context:property-placeholder location="jediscluster.properties"/>
+
+    <!-- 连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="${maxTotal}"/>
+        <!-- 最大空闲连接数 -->
+        <property name="maxIdle" value="${maxIdle}"/>
+        <!-- 每次释放连接的最大数目 -->
+        <property name="numTestsPerEvictionRun" value="${numTestsPerEvictionRun}"/>
+        <!-- 释放连接的扫描间隔（毫秒） -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <!-- 连接最小空闲时间 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+        <!-- 连接空闲多久后释放, 当空闲时间>该值且空闲连接>最大空闲连接数时直接释放 -->
+        <property name="softMinEvictableIdleTimeMillis" value="${softMinEvictableIdleTimeMillis}"/>
+        <!-- 获取连接时的最大等待毫秒数,小于零:阻塞不确定的时间,默认-1 -->
+        <property name="maxWaitMillis" value="${maxWaitMillis}"/>
+        <!-- 在获取连接的时候检查有效性, 默认false -->
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <!-- 在空闲时检查有效性, 默认false -->
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <!-- 连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true -->
+        <property name="blockWhenExhausted" value="${blockWhenExhausted}"/>
+    </bean>
+
+
+    <!--jedis集群-->
+    <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="nodes">
+            <set>
+                <!--redis节点1-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host1}"/>
+                    <constructor-arg name="port" value="${port1}"/>
+                </bean>
+                <!--redis节点2-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host2}"/>
+                    <constructor-arg name="port" value="${port2}"/>
+                </bean>
+                <!--redis节点3-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host3}"/>
+                    <constructor-arg name="port" value="${port3}"/>
+                </bean>
+                <!--redis节点4-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host4}"/>
+                    <constructor-arg name="port" value="${port4}"/>
+                </bean>
+                <!--redis节点5-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host5}"/>
+                    <constructor-arg name="port" value="${port5}"/>
+                </bean>
+                <!--redis节点6-->
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${host6}"/>
+                    <constructor-arg name="port" value="${port6}"/>
+                </bean>
+            </set>
+        </constructor-arg>
+    </bean>
+
+
+    <!--集群缓存连接池-->
+    <!--切片链接池:通过一致性哈希算法决定把数据存到哪台上-->
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="shards">
+            <list>
+                <!--redis节点1-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host1}"/>
+                    <constructor-arg name="port" value="${port1}"/>
+                </bean>
+                <!--redis节点2-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host2}"/>
+                    <constructor-arg name="port" value="${port2}"/>
+                </bean>
+                <!--redis节点3-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host3}"/>
+                    <constructor-arg name="port" value="${port3}"/>
+                </bean>
+                <!--redis节点4-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host4}"/>
+                    <constructor-arg name="port" value="${port4}"/>
+                </bean>
+                <!--redis节点5-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host5}"/>
+                    <constructor-arg name="port" value="${port5}"/>
+                </bean>
+                <!--redis节点6-->
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${host6}"/>
+                    <constructor-arg name="port" value="${port6}"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

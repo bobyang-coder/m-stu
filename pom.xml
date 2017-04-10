@@ -20,6 +20,7 @@
         <module>stu-mybatis</module>
         <module>stu-refactoring</module>
         <module>stu-snowflake</module>
+        <module>stu-redis</module>
     </modules>
 
 
