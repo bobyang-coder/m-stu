@@ -40,6 +40,7 @@
         <freemarker.version>2.3.23</freemarker.version>
         <quartz.version>2.2.2</quartz.version>
         <fastjson.version>1.2.29</fastjson.version>
+        <guava.version>21.0</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -123,8 +124,18 @@
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
             </dependency>
-        </dependencies>
 
+            <!--google相关-->
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+
+
+        </dependencies>
     </dependencyManagement>
 
 </project>
