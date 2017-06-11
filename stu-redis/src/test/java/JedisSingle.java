@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
  */
 public class JedisSingle {
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.229.128", 6379);
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
         jedis.set("name", "bar");
         String name = jedis.get("name");
         System.out.println(name);

@@ -17,7 +17,7 @@ public class JedisPoolTest {
         config.setMaxTotal(30);
         //最大连接空闲数
         config.setMaxIdle(2);
-        JedisPool pool = new JedisPool(config, "192.168.229.128", 6379);
+        JedisPool pool = new JedisPool(config, "127.0.0.1", 6379);
         Jedis jedis = null;
         jedis = pool.getResource();
         jedis.set("name", "lisi");
